@@ -1,14 +1,17 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore"; 
 
+console.log('API Key:', process.env.REACT_APP_API_KEY);  // This should log your API key
+console.log('Auth Domain:', process.env.REACT_APP_AUTH_DOMAIN);  // This should log your Auth Domain
+
 const firebaseConfig = {
-  apiKey: "AIzaSyBPeyCf9q3lWOtOPgelVd_zg1DCIg93ZAY",
-  authDomain: "coffeetracker-app.firebaseapp.com",
-  projectId: "coffeetracker-app",
-  storageBucket: "coffeetracker-app.appspot.com",
-  messagingSenderId: "209831934733",
-  appId: "1:209831934733:web:9d4bc8371da55f3b320e44",
-  measurementId: "G-3XMQRTJN14"
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
+  measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
 // Initialize Firebase
