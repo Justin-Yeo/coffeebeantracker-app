@@ -1,58 +1,119 @@
 .container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.add-bean {
+  margin-bottom: 30px;
+}
+
+.add-bean-button {
+  background-color: #f5f5dc; 
+  color:#816b5b;
+  border: none; 
+  width: 350px;
+  padding: 10px 30px; 
+  border-radius: 5px; 
+  font-size: 16px; 
+  font-weight: bold;
+  transition: background-color 0.3s ease; 
+}
+
+.add-bean-button:hover {
+  background-color: #e5e5c4; 
+  cursor: pointer;
+}
+
+.bean-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
+  gap: 40px; 
+}
+
+.card {
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  width: calc(33.333% - 26.67px); 
+  box-sizing: border-box; 
+  margin-bottom: 20px; 
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+  margin-top: 0;
+  font-size: 1.5em;
+}
+
+.card p {
+  margin: 10px 0;
+  color: #555;
+}
+
+.card button {
+  display: block;
+  background-color: #f5f5dc;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 10px auto;
+  color: #816b5b;
+  font-weight: bold; 
+  width: calc(100% - 5px);
+}
+
+.card button:hover {
+  background-color: #e5e5c4;
+}
+
+
+.card-actions {
+  margin-top: 15px;
+}
+
+.error {
+  color: red;
+}
+.card .decrement-input {
+  width: 300px; 
+  padding: 10px; 
+  font-size: 13px; 
+  display: block;
+  margin: 10px auto; 
+  text-align: center; 
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+input, button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: 'Roboto', sans-serif;
+}
+
+
+
+@media (max-width: 900px) {
+  .card {
+    width: calc(50% - 20px); 
   }
-  
-  h1 {
-    margin-bottom: 20px;
-    color: #333;
+}
+
+@media (max-width: 600px) {
+  .card {
+    width: 100%; 
   }
-  
-  input {
-    display: block;
-    width: calc(100% - 20px);
-    margin: 10px auto;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  button {
-    display: block;
-    width: calc(100% - 20px);
-    margin: 10px auto;
-    padding: 10px;
-    background-color: #f5f5dc;
-    color: #816b5b;
-    font-weight: bold; 
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: #e0e0c6;
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  li {
-    padding: 10px;
-    margin: 10px 0;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .error {
-    color: red;
-  }
-  
+}

@@ -1,15 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { db } from '../firebaseConfig'; // Import Firestore instance
-import { collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore'; // Import Firestore functions
-import './Coffeebean.css';
+import React, { useState, useEffect } from "react";
+import { db } from "../firebaseConfig"; // Import Firestore instance
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore"; // Import Firestore functions
+import "./Coffeebean.css";
 
 const CoffeeBean = () => {
   const [beans, setBeans] = useState([]);
-  const [name, setName] = useState('');
-  const [roastery, setRoastery] = useState('');
-  const [grams, setGrams] = useState('');
-  const [grinderSetting, setGrinderSetting] = useState('');
-  const [notes, setNotes] = useState('');
+  const [name, setName] = useState("");
+  const [roastery, setRoastery] = useState("");
+  const [grams, setGrams] = useState("");
+  const [grinderSetting, setGrinderSetting] = useState("");
+  const [notes, setNotes] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [editMode, setEditMode] = useState(null); // Track which bean is being edited
@@ -21,9 +28,11 @@ const CoffeeBean = () => {
       setLoading(true);
       setError(null);
       try {
-        const beansCollection = collection(db, 'coffeeBeans'); // Ensure correct Firestore instance is used
+        const beansCollection = collection(db, "coffeeBeans"); // Ensure correct Firestore instance is used
         const beansSnapshot = await getDocs(beansCollection);
-        setBeans(beansSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        setBeans(
+          beansSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+        );
       } catch (error) {
         console.error("Error fetching beans: ", error);
         setError(error.message);
@@ -36,8 +45,8 @@ const CoffeeBean = () => {
   }, []);
 
   const addBean = async () => {
-    if (!name || !roastery || !grams || !grinderSetting) {
-      alert("Please fill in all fields");
+    if (!name || !roastery || !grams || !grinderSetting || !notes) {
+      setError("Please fill in all fields");
       return;
     }
 
@@ -46,21 +55,21 @@ const CoffeeBean = () => {
       roastery,
       grams: parseInt(grams),
       grinderSetting,
-      notes
+      notes,
     };
 
     setLoading(true);
     setError(null);
 
     try {
-      const docRef = await addDoc(collection(db, 'coffeeBeans'), newBean); // Ensure correct Firestore instance is used
-      setBeans(prevBeans => [...prevBeans, { id: docRef.id, ...newBean }]);
+      const docRef = await addDoc(collection(db, "coffeeBeans"), newBean); // Ensure correct Firestore instance is used
+      setBeans((prevBeans) => [...prevBeans, { id: docRef.id, ...newBean }]);
 
-      setName('');
-      setRoastery('');
-      setGrams('');
-      setGrinderSetting('');
-      setNotes('');
+      setName("");
+      setRoastery("");
+      setGrams("");
+      setGrinderSetting("");
+      setNotes("");
     } catch (error) {
       console.error("Error adding bean: ", error);
       setError(error.message);
@@ -78,10 +87,10 @@ const CoffeeBean = () => {
     setError(null);
 
     try {
-      const beanDoc = doc(db, 'coffeeBeans', id); // Ensure correct Firestore instance is used
+      const beanDoc = doc(db, "coffeeBeans", id); // Ensure correct Firestore instance is used
       await updateDoc(beanDoc, editValues);
-      setBeans(prevBeans =>
-        prevBeans.map(bean =>
+      setBeans((prevBeans) =>
+        prevBeans.map((bean) =>
           bean.id === id ? { ...bean, ...editValues } : bean
         )
       );
@@ -100,9 +109,9 @@ const CoffeeBean = () => {
     setError(null);
 
     try {
-      const beanDoc = doc(db, 'coffeeBeans', id); // Ensure correct Firestore instance is used
+      const beanDoc = doc(db, "coffeeBeans", id); // Ensure correct Firestore instance is used
       await deleteDoc(beanDoc);
-      setBeans(prevBeans => prevBeans.filter(bean => bean.id !== id));
+      setBeans((prevBeans) => prevBeans.filter((bean) => bean.id !== id));
     } catch (error) {
       console.error("Error deleting bean: ", error);
       setError(error.message);
@@ -118,7 +127,11 @@ const CoffeeBean = () => {
   const decrementGrams = async (id, currentGrams) => {
     const decrementAmount = parseInt(decrementAmounts[id]);
 
-    if (!decrementAmount || decrementAmount <= 0 || decrementAmount > currentGrams) {
+    if (
+      !decrementAmount ||
+      decrementAmount <= 0 ||
+      decrementAmount > currentGrams
+    ) {
       alert("Invalid decrement amount");
       return;
     }
@@ -129,14 +142,14 @@ const CoffeeBean = () => {
     setError(null);
 
     try {
-      const beanDoc = doc(db, 'coffeeBeans', id); // Ensure correct Firestore instance is used
+      const beanDoc = doc(db, "coffeeBeans", id); // Ensure correct Firestore instance is used
       await updateDoc(beanDoc, { grams: newGrams });
-      setBeans(prevBeans =>
-        prevBeans.map(bean =>
+      setBeans((prevBeans) =>
+        prevBeans.map((bean) =>
           bean.id === id ? { ...bean, grams: newGrams } : bean
         )
       );
-      setDecrementAmounts({ ...decrementAmounts, [id]: '' }); // Reset input field after decrement
+      setDecrementAmounts({ ...decrementAmounts, [id]: "" }); // Reset input field after decrement
     } catch (error) {
       console.error("Error updating grams: ", error);
       setError(error.message);
@@ -148,103 +161,134 @@ const CoffeeBean = () => {
   return (
     <div className="container">
       <h1>Coffee Beans Inventory</h1>
-      <input
-        type="text"
-        placeholder="Name"
-        value={name}
-        onChange={e => setName(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Roastery"
-        value={roastery}
-        onChange={e => setRoastery(e.target.value)}
-      />
-      <input
-        type="number"
-        placeholder="Grams"
-        value={grams}
-        onChange={e => setGrams(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Grinder Setting"
-        value={grinderSetting}
-        onChange={e => setGrinderSetting(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Notes"
-        value={notes}
-        onChange={e => setNotes(e.target.value)}
-      />
-      <button onClick={addBean} disabled={!name || !roastery || !grams || !grinderSetting}>Add Bean</button>
+      <div className="add-bean">
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Roastery"
+          value={roastery}
+          onChange={(e) => setRoastery(e.target.value)}
+        />
+        <input
+          type="number"
+          placeholder="Grams"
+          value={grams}
+          onChange={(e) => setGrams(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Grinder Setting"
+          value={grinderSetting}
+          onChange={(e) => setGrinderSetting(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="Notes"
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+        />
+        <button className="add-bean-button" onClick={addBean}>
+          Add Bean
+        </button>
+      </div>
       {loading && <p>Loading...</p>}
       {error && <p className="error">{error}</p>}
-      <ul>
+      <div className="bean-list">
         {beans.map((bean, index) => (
-          <li key={index}>
+          <div key={index} className="card">
             {editMode === bean.id ? (
               <div>
                 <input
                   type="text"
                   placeholder="Name"
                   value={editValues.name || bean.name}
-                  onChange={e => handleEditChange('name', e.target.value)}
+                  onChange={(e) => handleEditChange("name", e.target.value)}
                 />
                 <input
                   type="text"
                   placeholder="Roastery"
                   value={editValues.roastery || bean.roastery}
-                  onChange={e => handleEditChange('roastery', e.target.value)}
+                  onChange={(e) => handleEditChange("roastery", e.target.value)}
                 />
                 <input
                   type="number"
                   placeholder="Grams"
                   value={editValues.grams || bean.grams}
-                  onChange={e => handleEditChange('grams', e.target.value)}
+                  onChange={(e) => handleEditChange("grams", e.target.value)}
                 />
                 <input
                   type="text"
                   placeholder="Grinder Setting"
                   value={editValues.grinderSetting || bean.grinderSetting}
-                  onChange={e => handleEditChange('grinderSetting', e.target.value)}
+                  onChange={(e) =>
+                    handleEditChange("grinderSetting", e.target.value)
+                  }
                 />
                 <input
                   type="text"
                   placeholder="Notes"
                   value={editValues.notes || bean.notes}
-                  onChange={e => handleEditChange('notes', e.target.value)}
+                  onChange={(e) => handleEditChange("notes", e.target.value)}
                 />
-                <button onClick={() => saveEdit(bean.id)}>Save</button>
-                <button onClick={() => setEditMode(null)}>Cancel</button>
+                <div className="card-actions">
+                  <button onClick={() => saveEdit(bean.id)}>Save</button>
+                  <button onClick={() => setEditMode(null)}>Cancel</button>
+                </div>
               </div>
             ) : (
               <div>
-                <strong>{bean.name}</strong> - {bean.roastery} - {bean.grams}g - {bean.grinderSetting} - {bean.notes}
-                <input
-                  type="number"
-                  placeholder="Decrement"
-                  value={decrementAmounts[bean.id] || ''}
-                  onChange={e => handleDecrementChange(bean.id, e.target.value)}
-                />
-                <button onClick={() => decrementGrams(bean.id, bean.grams)}>Use</button>
-                <button onClick={() => {
-                  setEditMode(bean.id);
-                  setEditValues({
-                    name: bean.name,
-                    roastery: bean.roastery,
-                    grams: bean.grams,
-                    grinderSetting: bean.grinderSetting,
-                    notes: bean.notes
-                  });
-                }}>Edit</button>
-                <button onClick={() => deleteBean(bean.id)}>Delete</button>
+                <h3>{bean.name}</h3>
+                <p>
+                  <strong>Roastery:</strong> {bean.roastery}
+                </p>
+                <p>
+                  <strong>Grams Left:</strong> {bean.grams}g
+                </p>
+                <p>
+                  <strong>Grinder Setting:</strong> {bean.grinderSetting}
+                </p>
+                <p>
+                  <strong>Notes:</strong> {bean.notes}
+                </p>
+                <div className="card-actions">
+                  <input
+                    type="number"
+                    className="decrement-input"
+                    placeholder="Enter amount of coffee consumed (g)"
+                    value={decrementAmounts[bean.id] || ""}
+                    onChange={(e) =>
+                      handleDecrementChange(bean.id, e.target.value)
+                    }
+                  />
+                  <button onClick={() => decrementGrams(bean.id, bean.grams)}>
+                    Use
+                  </button>
+                  <button
+                    onClick={() => {
+                      setEditMode(bean.id);
+                      setEditValues({
+                        name: bean.name,
+                        roastery: bean.roastery,
+                        grams: bean.grams,
+                        grinderSetting: bean.grinderSetting,
+                        notes: bean.notes,
+                      });
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button onClick={() => deleteBean(bean.id)}>Delete</button>
+                </div>
               </div>
             )}
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };
