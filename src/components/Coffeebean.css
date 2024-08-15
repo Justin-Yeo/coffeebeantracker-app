@@ -1,47 +1,85 @@
+:root {
+  --primary-bg-color: #fbf9d1;
+  --primary-font-color: #816b5b;
+  --hover-bg-color: #e5e5c4;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
 
-.add-bean {
-  margin-bottom: 30px;
+.header-image {
+  display: block;
+  margin: 0 auto 30px auto;
+  max-width: 200px;
+  height: auto;
 }
 
-.add-bean-button {
-  background-color: #f5f5dc; 
-  color:#816b5b;
-  border: none; 
-  width: 350px;
-  padding: 10px 30px; 
-  border-radius: 5px; 
-  font-size: 16px; 
-  font-weight: bold;
-  transition: background-color 0.3s ease; 
-}
-
-.add-bean-button:hover {
-  background-color: #e5e5c4; 
-  cursor: pointer;
-}
-
-.bean-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center; 
-  gap: 40px; 
-}
-
-.card {
-  background-color: #f8f9fa;
+.add-bean-card {
+  background-color: #fffaf0;
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
-  width: calc(33.333% - 26.67px); 
-  box-sizing: border-box; 
-  margin-bottom: 20px; 
+  max-width: 800px;
+  margin: 0 auto 30px auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+  grid-template-rows: repeat(3, auto); /* Three rows to fit the inputs and button */
+  grid-gap: 15px; /* Space between items */
+  align-items: center; /* Align items vertically */
+}
+
+.add-bean-inputs-left,
+.add-bean-inputs-right {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.add-bean-inputs-left input,
+.add-bean-inputs-right input,
+.add-bean-button {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 40px; /* Ensures the inputs and button are the same height */
+}
+
+.add-bean-button {
+  background-color: var(--primary-bg-color);
+  color: black;
+  border: none;
+  cursor: pointer;
+}
+
+.add-bean-button:hover {
+  background-color: var(--hover-bg-color);
+}
+
+.bean-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+
+.card {
+  background-color: #fffaf0;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  width: calc(33.333% - 26.67px);
+  box-sizing: border-box;
+  margin-bottom: 20px;
 }
 
 .card:hover {
@@ -60,21 +98,20 @@
 
 .card button {
   display: block;
-  background-color: #f5f5dc;
+  background-color: var(--primary-bg-color);
   border: none;
   padding: 10px 15px;
   border-radius: 10px;
   cursor: pointer;
   margin: 10px auto;
   color: #816b5b;
-  font-weight: bold; 
+  font-weight: bold;
   width: calc(100% - 5px);
 }
 
 .card button:hover {
-  background-color: #e5e5c4;
+  background-color: var(--hover-bg-color);
 }
-
 
 .card-actions {
   margin-top: 15px;
@@ -83,45 +120,55 @@
 .error {
   color: red;
 }
+
 .card .decrement-input {
-  width: 300px; 
-  padding: 10px; 
-  font-size: 13px; 
+  width: 300px;
+  padding: 10px;
+  font-size: 13px;
   display: block;
-  margin: 10px auto; 
-  text-align: center; 
+  margin: 10px auto;
+  text-align: center;
   border: 1px solid #ccc;
   border-radius: 10px;
   box-sizing: border-box;
 }
 
-input, button {
+input,
+button {
   display: block;
   margin: 10px auto;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
-
-
 
 @media (max-width: 900px) {
   .card {
-    width: calc(50% - 20px); 
+    width: calc(50% - 20px);
+  }
+
+  .add-bean-card {
+    grid-template-columns: 1fr; /* Stack everything in one column on smaller screens */
+    grid-template-rows: repeat(6, auto); /* Six rows for inputs and button */
+  }
+
+  .add-bean-button {
+    width: 100%;
   }
 }
 
 @media (max-width: 600px) {
   .card {
-    width: 100%; 
+    width: 100%;
   }
 
-  .header-image {
-    display: block;
-    margin: 0 auto;
-    max-width: 100%;
-    height: auto;
+  .add-bean-card {
+    grid-template-columns: 1fr; /* Stack everything in one column on smaller screens */
+    grid-template-rows: repeat(6, auto); /* Six rows for inputs and button */
   }
-  
+
+  .add-bean-button {
+    width: 100%;
+  }
 }

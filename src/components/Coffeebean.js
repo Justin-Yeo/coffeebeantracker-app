@@ -9,7 +9,7 @@ import {
   doc,
 } from "firebase/firestore"; // Import Firestore functions
 import "./Coffeebean.css";
-import headerLogo from '../assets/headerLogo.png'
+import headerLogo from '../assets/headerLogo.png';
 
 const CoffeeBean = () => {
   const [beans, setBeans] = useState([]);
@@ -161,41 +161,45 @@ const CoffeeBean = () => {
 
   return (
     <div className="container">
-      <img src={headerLogo} alt="BeanVault" className="header-image"/>
-      <div className="add-bean">
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Roastery"
-          value={roastery}
-          onChange={(e) => setRoastery(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Grams"
-          value={grams}
-          onChange={(e) => setGrams(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Grinder Setting"
-          value={grinderSetting}
-          onChange={(e) => setGrinderSetting(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Notes"
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-        />
-        <button className="add-bean-button" onClick={addBean}>
-          Add Bean
-        </button>
+      <img src={headerLogo} alt="BeanVault" className="header-image" />
+      <div className="card add-bean-card">
+        <div className="add-bean-inputs-left">
+          <input
+            type="text"
+            placeholder="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Roastery"
+            value={roastery}
+            onChange={(e) => setRoastery(e.target.value)}
+          />
+          <input
+            type="number"
+            placeholder="Grams"
+            value={grams}
+            onChange={(e) => setGrams(e.target.value)}
+          />
+        </div>
+        <div className="add-bean-inputs-right">
+          <input
+            type="text"
+            placeholder="Grinder Setting"
+            value={grinderSetting}
+            onChange={(e) => setGrinderSetting(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Notes"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+          />
+          <button className="add-bean-button" onClick={addBean}>
+            Add Bean
+          </button>
+        </div>
       </div>
       {loading && <p>Loading...</p>}
       {error && <p className="error">{error}</p>}
@@ -291,7 +295,7 @@ const CoffeeBean = () => {
         ))}
       </div>
     </div>
-  );
+  );  
 };
 
 export default CoffeeBean;
