@@ -9,6 +9,7 @@ import {
   doc,
 } from "firebase/firestore"; // Import Firestore functions
 import "./Coffeebean.css";
+import headerLogo from '../assets/headerLogo.png'
 
 const CoffeeBean = () => {
   const [beans, setBeans] = useState([]);
@@ -160,7 +161,7 @@ const CoffeeBean = () => {
 
   return (
     <div className="container">
-      <h1>Coffee Beans Inventory</h1>
+      <img src={headerLogo} alt="BeanVault" className="header-image"/>
       <div className="add-bean">
         <input
           type="text"

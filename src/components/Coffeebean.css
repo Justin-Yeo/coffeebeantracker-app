@@ -116,4 +116,12 @@ input, button {
   .card {
     width: 100%; 
   }
+
+  .header-image {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+  }
+  
 }
